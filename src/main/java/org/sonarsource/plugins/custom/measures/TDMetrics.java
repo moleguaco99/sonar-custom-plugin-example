@@ -11,8 +11,12 @@ import static java.util.Arrays.asList;
 
 public class TDMetrics implements Metrics {
 
-    private static final int MINUTES_PER_HOUR = 60;
-    private static final int HOURS_PER_DAY = 8;
+    public static final Metric<Long> PERFORMANCE_RELATED_DEBT = new Metric
+            .Builder("performance_related_debt", "Performance Related Debt", Metric.ValueType.WORK_DUR)
+            .setDirection(Metric.DIRECTION_WORST)
+            .setQualitative(true)
+            .setDomain(CoreMetrics.DEVELOPMENT_COST_KEY)
+            .create();
 
     public static final Metric<Long> SECURITY_TECHNICAL_DEBT = new Metric
             .Builder("security_technical_debt", "Security Technical Debt", Metric.ValueType.WORK_DUR)
@@ -35,14 +39,9 @@ public class TDMetrics implements Metrics {
             .setDomain(CoreMetrics.DEVELOPMENT_COST_KEY)
             .create();
 
-    public static Long minutesToWorkDays(Duration workDuration) {
-        long workDurationInMinutes = workDuration.toMinutes();
-        return workDurationInMinutes / (MINUTES_PER_HOUR * HOURS_PER_DAY);
-    }
-
     @Override
     public List<Metric> getMetrics() {
-        return asList(SECURITY_TECHNICAL_DEBT, RELIABILITY_TECHNICAL_DEBT, EXTENDED_TECHNICAL_DEBT);
+        return asList(PERFORMANCE_RELATED_DEBT, SECURITY_TECHNICAL_DEBT, RELIABILITY_TECHNICAL_DEBT, EXTENDED_TECHNICAL_DEBT);
     }
 
 }

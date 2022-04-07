@@ -103,3 +103,26 @@ export function findVersionsAndMeasures(project) {
     }
   });
 }
+
+export function findMetrics(project) {
+  return getJSON("/api/measures/component", {
+    component: project.key,
+    metrics: "alert_status,bugs,vulnerabilities,sqale_index,reliability_rating,security_rating,sqale_rating,reliability_technical_debt,security_technical_debt,extended_technical_debt",
+    ps: 50
+  }).then(responseMetrics => {
+    console.log(responseMetrics);
+    let result = {
+      alert_status: "",
+      bugs: "0",
+      vulnerabilities: "0",
+      sqale_index: "0",
+      reliability_rating: "",
+      security_rating: "",
+      sqale_rating: "",
+      reliability_technical_debt: "0",
+      security_technical_debt: "0",
+      extended_technical_debt: "0"
+    }
+    return result;
+  });
+}

@@ -31,6 +31,7 @@ module.exports = {
 
     // Using React:
     portfolio_page: ["./src/main/js/portfolio_page/index.js"],
+    metrics_page: ["./src/main/js/metrics_page/index.js"],
     admin_page: ["./src/main/js/admin_page/index.js"]
   },
   output: {
