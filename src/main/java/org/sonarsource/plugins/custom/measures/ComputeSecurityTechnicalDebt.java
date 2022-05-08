@@ -34,14 +34,9 @@ public class ComputeSecurityTechnicalDebt implements MeasureComputer {
                     .collect(Collectors.toList());
 
             Duration securityTechnicalDebt = Duration.create(0);
-            Measure measure = measureComputerContext.getMeasure(SECURITY_TECHNICAL_DEBT.getKey());
-
-            if (measure != null) {
-                securityTechnicalDebt = Duration.create(measure.getLongValue());
-            }
 
             for (Issue issue : issues) {
-                securityTechnicalDebt = securityTechnicalDebt.add(issue.effort());
+                securityTechnicalDebt = securityTechnicalDebt.add(issue.effort() != null ? issue.effort() : Duration.create(0));
             }
             measureComputerContext.addMeasure(SECURITY_TECHNICAL_DEBT.getKey(), securityTechnicalDebt.toMinutes());
             return;

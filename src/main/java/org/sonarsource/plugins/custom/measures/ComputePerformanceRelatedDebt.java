@@ -32,7 +32,7 @@ public class ComputePerformanceRelatedDebt implements MeasureComputer {
                 Collection<String> issueTags = ((org.sonar.api.issue.Issue) issue).tags();
                 boolean isPerformanceIssue = issueTags.stream().anyMatch("performance"::equals);
                 if(isPerformanceIssue)
-                    performanceTechnicalDebt = performanceTechnicalDebt.add(issue.effort());
+                    performanceTechnicalDebt = performanceTechnicalDebt.add(issue.effort() != null ? issue.effort() : Duration.create(0));
             }
             measureComputerContext.addMeasure(PERFORMANCE_RELATED_DEBT.getKey(), performanceTechnicalDebt.toMinutes());
             return;

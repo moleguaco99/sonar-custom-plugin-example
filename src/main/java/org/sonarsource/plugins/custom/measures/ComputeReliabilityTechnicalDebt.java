@@ -32,8 +32,8 @@ public class ComputeReliabilityTechnicalDebt implements MeasureComputer {
 
             Duration reliabilityTechnicalDebt = Duration.create(0);
 
-            for (Issue issue : issues) {z
-                reliabilityTechnicalDebt = reliabilityTechnicalDebt.add(issue.effort());
+            for (Issue issue : issues) {
+                reliabilityTechnicalDebt = reliabilityTechnicalDebt.add(issue.effort() != null ? issue.effort() : Duration.create(0));
             }
             measureComputerContext.addMeasure(RELIABILITY_TECHNICAL_DEBT.getKey(), reliabilityTechnicalDebt.toMinutes());
             return;
